@@ -13,7 +13,6 @@ val changelogFile = project.file("changelogs/$modVersion.md")
 val changelogText = if (changelogFile.exists()) changelogFile.readText() else "No changelog provided."
 
 plugins {
-    id("maven-publish")
     kotlin("jvm").version(System.getProperty("kotlinVersion"))
     id("com.modrinth.minotaur").version("2.+")
     alias(libs.plugins.quilt.loom)
@@ -35,6 +34,7 @@ dependencies {
     })
     modImplementation(libs.quilt.loader)
     modImplementation(libs.quilted.fabric.api)
+    modImplementation(libs.fabric.language.kotlin)
 }
 
 tasks {

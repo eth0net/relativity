@@ -4,8 +4,12 @@ kotlin = "1.7.10"
 minecraft = "1.19"
 quilt_mappings = "1.19+build.1"
 quilt_loader = "0.17.2-beta.3"
+
 quilted_fabric_api = "2.0.0-beta.9+0.58.0-1.19"
+
 qsl = "2.0.0-beta.16"
+
+fabric_language_kotlin = "1.8.2+kotlin.1.7.10"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -14,6 +18,8 @@ quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loade
 
 quilted_fabric_api = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api", version.ref = "quilted_fabric_api" }
 quilted_fabric_api_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "quilted_fabric_api" }
+
+fabric_language_kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric_language_kotlin" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]
