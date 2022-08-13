@@ -13,7 +13,7 @@ object Relativity : ModInitializer {
     override fun onInitialize(mod: ModContainer) {
         log.info("Relativity initializing...")
 
-        
+
 
         log.info("Relativity initialized")
     }
