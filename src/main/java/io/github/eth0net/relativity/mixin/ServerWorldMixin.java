@@ -1,5 +1,6 @@
 package io.github.eth0net.relativity.mixin;
 
+import io.github.eth0net.relativity.Relativity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.dragon.EnderDragonFight;
 import net.minecraft.server.world.ServerChunkManager;
@@ -7,11 +8,9 @@ import net.minecraft.server.world.ServerEntityManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.raid.RaidManager;
-import net.minecraft.world.World;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.tick.WorldTickScheduler;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -23,17 +22,21 @@ import java.util.function.BooleanSupplier;
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
 	private final int fullTick = 100;
-	private final int tickRate = 50; // 100% tick rate
+
 	private int tickProgress = 0;
+
+	public int getTickRate() {
+		return Relativity.INSTANCE.getTickRate();
+	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTickStart(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
-		if (shouldKeepTicking.getAsBoolean()) tickProgress += tickRate;
+		if (shouldKeepTicking.getAsBoolean()) tickProgress += getTickRate();
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void onTickEnd(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
-		tickProgress = tickProgress % tickRate;
+		if (tickProgress > fullTick) tickProgress = tickProgress % getTickRate();
 	}
 
 	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/border/WorldBorder;tick()V"))
