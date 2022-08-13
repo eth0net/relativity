@@ -1,4 +1,4 @@
-# ![Relativity](./assets/icons/fitted.png)
+# ![Relativity](./assets/icons/fitted-anim.png)
 
 Take control over the flow of time.
 
