@@ -1,25 +1,26 @@
 {
 	"schema_version": 1,
 	"quilt_loader": {
-		"group": "com.example",
-		"id": "example_mod",
+		"group": "io.github.eth0net",
+		"id": "relativity",
 		"version": "${version}",
 		"metadata": {
-			"name": "Mod Name",
-			"description": "A short description of your mod.",
+			"name": "Relativity",
+			"description": "Take control over the flow of time.",
 			"contributors": {
-				"Your name here": "Owner"
+				"eth0net": "Owner"
 			},
 			"contact": {
-				"homepage": "https://example.com/",
-				"issues": "https://github.com/QuiltMC/quilt-template-mod/issues",
-				"sources": "https://github.com/QuiltMC/quilt-template-mod"
+				"homepage": "https://github.com/eth0net/relativity",
+				"issues": "https://github.com/eth0net/relativity/issues",
+				"sources": "https://github.com/eth0net/relativity"
 			},
-			"icon": "assets/example_mod/icon.png"
+			"license": "MIT",
+			"icon": "assets/relativity/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "com.example.example_mod.ExampleMod"
+			"init": "io.github.eth0net.relativity.Relativity"
 		},
 		"depends": [
 			{
@@ -32,9 +33,9 @@
 			},
 			{
 				"id": "minecraft",
-				"versions": ">=1.19.2"
+				"versions": ">=1.19.x"
 			}
 		]
 	},
-	"mixin": "example_mod.mixins.json"
+	"mixin": "relativity.mixins.json"
 }
