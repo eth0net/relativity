@@ -6,6 +6,8 @@ val modId: String by project
 val modVersion: String by project
 val modVersionName: String by project
 val modVersionType: String by project
+val quiltStandardLibraryId: String by project
+val fabricLanguageKotlinId: String by project
 
 val changelogFile = project.file("changelogs/$modVersion.md")
 val changelogText = if (changelogFile.exists()) changelogFile.readText() else "No changelog provided."
@@ -66,6 +68,9 @@ tasks {
         changelog.set(changelogText)
         uploadFile.set(remapJar.get())
         additionalFiles.set(listOf(remapSourcesJar.get()))
-        dependencies {}
+        dependencies {
+            required.version(quiltStandardLibraryId)
+            required.version(fabricLanguageKotlinId)
+        }
     }
 }
