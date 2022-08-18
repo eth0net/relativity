@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EDE",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "D": {"item": "minecraft:diamond"},
+    "E": {"item": "minecraft:echo_shard"},
+    "S": {"item": "minecraft:stick"}
+  },
+  "result": {
+    "item": "relativity:staff"
+  }
+}

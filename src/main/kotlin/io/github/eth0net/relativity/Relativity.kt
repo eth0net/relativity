@@ -33,6 +33,8 @@ object Relativity : ModInitializer {
     override fun onInitialize(mod: ModContainer) {
         log.info("Relativity initializing...")
 
+        Items
+
         ServerPlayNetworking.registerGlobalReceiver(Channels.CONTROL) { _, player, _, buf, _ ->
             tickRate = buf.readInt()
             player.sendMessage(Text.literal("Relativity: ${tickRate}%"), true)
