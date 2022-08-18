@@ -36,7 +36,8 @@ public class ServerWorldMixin {
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void onTickEnd(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
-		if (tickProgress > fullTick) tickProgress = tickProgress % getTickRate();
+		int tickRate = getTickRate();
+		if (tickProgress > fullTick && tickRate > 0) tickProgress = tickProgress % tickRate;
 	}
 
 	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/border/WorldBorder;tick()V"))
