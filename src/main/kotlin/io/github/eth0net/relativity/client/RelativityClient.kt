@@ -3,6 +3,7 @@ package io.github.eth0net.relativity.client
 import io.github.eth0net.relativity.Relativity
 import io.github.eth0net.relativity.client.input.keybind.KeyBinds
 import io.github.eth0net.relativity.network.Channels
+import net.minecraft.util.Identifier
 import org.quiltmc.loader.api.ModContainer
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents
@@ -15,18 +16,20 @@ object RelativityClient : ClientModInitializer {
         Relativity.log.info("Relativity client initializing...")
 
         ClientTickEvents.END.register {
-            while (KeyBinds.STOP.wasPressed()) sendControlMessage(0)
-            while (KeyBinds.NORMAL.wasPressed()) sendControlMessage(100)
-            while (KeyBinds.SLOW.wasPressed()) sendControlMessage(50)
-            while (KeyBinds.FAST.wasPressed()) sendControlMessage(200)
+            while (KeyBinds.STOP.wasPressed()) sendSetMessage(0)
+            while (KeyBinds.NORMAL.wasPressed()) sendSetMessage(100)
+            while (KeyBinds.SLOWER.wasPressed()) sendModMessage(-10)
+            while (KeyBinds.FASTER.wasPressed()) sendModMessage(10)
         }
 
         Relativity.log.info("Relativity client initialized")
     }
 
-    private fun sendControlMessage(rate: Int) {
+    private fun sendModMessage(rate: Int) = sendIntMessage(Channels.MOD, rate)
+    private fun sendSetMessage(rate: Int) = sendIntMessage(Channels.SET, rate)
+    private fun sendIntMessage(channel: Identifier, rate: Int) {
         val buf = PacketByteBufs.create()
         buf.writeInt(rate)
-        ClientPlayNetworking.send(Channels.CONTROL, buf)
+        ClientPlayNetworking.send(channel, buf)
     }
 }

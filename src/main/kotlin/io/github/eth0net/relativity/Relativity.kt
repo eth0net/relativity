@@ -16,9 +16,9 @@ object Relativity : ModInitializer {
 
     val log: Logger = LoggerFactory.getLogger(MOD_ID)
 
-    private val minTickRate = 0
-    private val maxTickRate = 1000
-    private val defaultTickRate = 100
+    private const val minTickRate = 0
+    private const val maxTickRate = 1000
+    internal const val defaultTickRate = 100
     var tickRate = defaultTickRate // normal tick rate == 100
         set(value) {
             field = if (value < minTickRate) {
@@ -35,9 +35,17 @@ object Relativity : ModInitializer {
 
         Items
 
-        ServerPlayNetworking.registerGlobalReceiver(Channels.CONTROL) { _, player, _, buf, _ ->
+        ServerPlayNetworking.registerGlobalReceiver(Channels.SET) { server, _, _, buf, _ ->
             tickRate = buf.readInt()
-            player.sendMessage(Text.literal("Relativity: ${tickRate}%"), true)
+            server.playerManager.playerList.forEach {
+                it.sendMessage(Text.literal("Relativity: ${tickRate}%"), true)
+            }
+        }
+        ServerPlayNetworking.registerGlobalReceiver(Channels.MOD) { server, _, _, buf, _ ->
+            tickRate += buf.readInt()
+            server.playerManager.playerList.forEach {
+                it.sendMessage(Text.literal("Relativity: ${tickRate}%"), true)
+            }
         }
 
         log.info("Relativity initialized")

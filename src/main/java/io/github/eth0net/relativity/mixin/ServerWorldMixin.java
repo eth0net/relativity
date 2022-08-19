@@ -22,21 +22,17 @@ import java.util.function.BooleanSupplier;
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
 	private final int fullTick = 100;
-
 	private int tickProgress = 0;
-
-	public int getTickRate() {
-		return Relativity.INSTANCE.getTickRate();
-	}
+	private int tickRate = Relativity.defaultTickRate; // 100 == normal speed
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTickStart(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
-		if (shouldKeepTicking.getAsBoolean()) tickProgress += getTickRate();
+		tickRate = Relativity.INSTANCE.getTickRate();
+		if (shouldKeepTicking.getAsBoolean()) tickProgress += tickRate;
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void onTickEnd(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
-		int tickRate = getTickRate();
 		if (tickProgress > fullTick && tickRate > 0) tickProgress = tickProgress % tickRate;
 	}
 

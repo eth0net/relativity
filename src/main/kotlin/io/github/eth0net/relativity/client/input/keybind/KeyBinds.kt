@@ -9,8 +9,8 @@ import org.lwjgl.glfw.GLFW
 object KeyBinds {
     val STOP = register("stop", GLFW.GLFW_KEY_MINUS)
     val NORMAL = register("normal", GLFW.GLFW_KEY_EQUAL)
-    val SLOW = register("slow", GLFW.GLFW_KEY_LEFT_BRACKET)
-    val FAST = register("fast", GLFW.GLFW_KEY_RIGHT_BRACKET)
+    val SLOWER = register("slower", GLFW.GLFW_KEY_LEFT_BRACKET)
+    val FASTER = register("faster", GLFW.GLFW_KEY_RIGHT_BRACKET)
 
     private fun register(name: String, key: Int): KeyBind {
         return KeyBindingHelper.registerKeyBinding(

@@ -1,22 +1,20 @@
 package io.github.eth0net.relativity.item
 
 import io.github.eth0net.relativity.Relativity
-import io.github.eth0net.relativity.network.Channels
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.text.Text
 import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
-import org.quiltmc.qsl.networking.api.PacketByteBufs
-import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking
 
 class RelativityItem(settings: Settings) : Item(settings) {
-    override fun use(world: World, player: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
-        val buf = PacketByteBufs.create()
-        buf.writeInt(if (Relativity.tickRate == 0) 100 else 0)
-        ClientPlayNetworking.send(Channels.CONTROL, buf)
-        return TypedActionResult.success(player.getStackInHand(hand))
+    override fun use(world: World, user: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
+        if (world.isClient()) return super.use(world, user, hand)
+        Relativity.tickRate = if (user.isSneaking) 100 else 0
+        user.sendMessage(Text.literal("Relativity: ${Relativity.tickRate}"), true)
+        return TypedActionResult.success(user.getStackInHand(hand))
     }
 }
 
