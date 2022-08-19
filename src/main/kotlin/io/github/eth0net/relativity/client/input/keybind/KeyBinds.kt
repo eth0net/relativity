@@ -7,18 +7,21 @@ import net.minecraft.client.option.KeyBind
 import org.lwjgl.glfw.GLFW
 
 object KeyBinds {
-    val STOP = register("stop", GLFW.GLFW_KEY_MINUS)
-    val NORMAL = register("normal", GLFW.GLFW_KEY_EQUAL)
-    val SLOWER = register("slower", GLFW.GLFW_KEY_LEFT_BRACKET)
-    val FASTER = register("faster", GLFW.GLFW_KEY_RIGHT_BRACKET)
+    val STOP = bind("stop", GLFW.GLFW_KEY_MINUS)
+    val NORMAL = bind("normal", GLFW.GLFW_KEY_EQUAL)
+    val SLOWER = bind("slower", GLFW.GLFW_KEY_LEFT_BRACKET)
+    val FASTER = bind("faster", GLFW.GLFW_KEY_RIGHT_BRACKET)
 
-    private fun register(name: String, key: Int): KeyBind {
-        return KeyBindingHelper.registerKeyBinding(
-            KeyBind(key(name), InputUtil.Type.KEYSYM, key, category("general"))
-        )
-    }
+    private fun bind(name: String, key: Int) = KeyBind(key(name), InputUtil.Type.KEYSYM, key, category("general"))
 
     private fun key(name: String) = "key.${Relativity.MOD_ID}.$name"
 
     private fun category(name: String) = "category.${Relativity.MOD_ID}.$name"
+
+    internal fun register() {
+        KeyBindingHelper.registerKeyBinding(STOP)
+        KeyBindingHelper.registerKeyBinding(NORMAL)
+        KeyBindingHelper.registerKeyBinding(SLOWER)
+        KeyBindingHelper.registerKeyBinding(FASTER)
+    }
 }

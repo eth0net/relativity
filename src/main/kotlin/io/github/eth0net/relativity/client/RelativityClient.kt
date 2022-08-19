@@ -15,6 +15,8 @@ object RelativityClient : ClientModInitializer {
     override fun onInitializeClient(mod: ModContainer?) {
         Relativity.log.info("Relativity client initializing...")
 
+        KeyBinds.register()
+
         ClientTickEvents.END.register {
             while (KeyBinds.STOP.wasPressed()) sendSetMessage(0)
             while (KeyBinds.NORMAL.wasPressed()) sendSetMessage(100)

@@ -1,0 +1,9 @@
+{
+  "category.relativity.general": "Relativity",
+  "item.relativity.staff": "Staff of Relativity",
+  "key.relativity.slower": "Slow Time",
+  "key.relativity.faster": "Accelerate Time",
+  "key.relativity.normal": "Reset Time",
+  "key.relativity.stop": "Stop Time",
+  "message.relativity.rate": "Relativity: %d%%"
+}

@@ -2,6 +2,7 @@ package io.github.eth0net.relativity
 
 import io.github.eth0net.relativity.item.Items
 import io.github.eth0net.relativity.network.Channels
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import org.quiltmc.loader.api.ModContainer
@@ -35,16 +36,16 @@ object Relativity : ModInitializer {
 
         Items
 
-        ServerPlayNetworking.registerGlobalReceiver(Channels.SET) { server, _, _, buf, _ ->
-            tickRate = buf.readInt()
-            server.playerManager.playerList.forEach {
-                it.sendMessage(Text.literal("Relativity: ${tickRate}%"), true)
+        ServerPlayNetworking.registerGlobalReceiver(Channels.SET) { server, player, _, buf, _ ->
+            if (player.hasPermissionLevel(2)) {
+                tickRate = buf.readInt()
+                server.playerManager.playerList.forEach { it.sendRateMessage() }
             }
         }
-        ServerPlayNetworking.registerGlobalReceiver(Channels.MOD) { server, _, _, buf, _ ->
-            tickRate += buf.readInt()
-            server.playerManager.playerList.forEach {
-                it.sendMessage(Text.literal("Relativity: ${tickRate}%"), true)
+        ServerPlayNetworking.registerGlobalReceiver(Channels.MOD) { server, player, _, buf, _ ->
+            if (player.hasPermissionLevel(2)) {
+                tickRate += buf.readInt()
+                server.playerManager.playerList.forEach { it.sendRateMessage() }
             }
         }
 
@@ -52,4 +53,8 @@ object Relativity : ModInitializer {
     }
 
     internal fun id(path: String) = Identifier(MOD_ID, path)
+
+    internal fun PlayerEntity.sendRateMessage() {
+        this.sendMessage(Text.translatable("message.relativity.rate", tickRate), true)
+    }
 }
