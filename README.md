@@ -17,4 +17,4 @@ Take control over the flow of time.
 
 ## Gallery
 
-TODO
+![Staff recipe](./assets/screenshots/staff-recipe.png)
