@@ -7,11 +7,13 @@ Take control over the flow of time.
 
 ## Getting Started
 
-TODO
+- Craft the Staff of Relativity
+- Use the staff to control time!
 
 ## Features
 
-TODO
+- Craftable Staff of Relativity
+- Op / cheat keybinds
 
 ## Gallery
 

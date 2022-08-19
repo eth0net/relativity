@@ -18,7 +18,7 @@ object Relativity : ModInitializer {
 
     private const val minTickRate = 0
     private const val maxTickRate = 1000
-    internal const val defaultTickRate = 100
+    private const val defaultTickRate = 100
     var tickRate = defaultTickRate // normal tick rate == 100
         set(value) {
             field = if (value < minTickRate) {

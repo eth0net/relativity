@@ -13,7 +13,7 @@ class RelativityItem(settings: Settings) : Item(settings) {
     override fun use(world: World, user: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
         if (world.isClient()) return super.use(world, user, hand)
         Relativity.tickRate = if (user.isSneaking) 100 else 0
-        user.sendMessage(Text.literal("Relativity: ${Relativity.tickRate}"), true)
+        user.sendMessage(Text.literal("Relativity: ${Relativity.tickRate}%"), true)
         return TypedActionResult.success(user.getStackInHand(hand))
     }
 }
