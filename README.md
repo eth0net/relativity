@@ -20,3 +20,7 @@ Made for [Modfest: Singularity](https://modfest.net/)!
 ## Gallery
 
 ![Staff recipe](./assets/screenshots/staff-recipe.png)
+
+## My mods
+
+[<img alt="Enchant Menu" height="256" src="../../../enchant-menu/blob/main/assets/icons/short-square-anim.png" />](https://github.com/eth0net/enchant-menu)
