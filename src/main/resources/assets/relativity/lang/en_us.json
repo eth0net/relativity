@@ -5,5 +5,6 @@
   "key.relativity.faster": "Accelerate Time",
   "key.relativity.normal": "Reset Time",
   "key.relativity.stop": "Stop Time",
-  "message.relativity.rate": "Relativity: %d%%"
+  "message.relativity.rate": "Relativity: %d%%",
+  "error.relativity.permission": "You do not have permission to change relativity"
 }

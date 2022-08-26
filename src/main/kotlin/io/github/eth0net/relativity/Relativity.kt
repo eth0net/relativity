@@ -40,15 +40,19 @@ object Relativity : ModInitializer {
         ServerLifecycleEvents.STARTING.register { tickRate = defaultTickRate }
 
         ServerPlayNetworking.registerGlobalReceiver(Channels.SET) { server, player, _, buf, _ ->
-            if (player.hasPermissionLevel(2)) {
+            if (server.isSingleplayer || player.hasPermissionLevel(4)) {
                 tickRate = buf.readInt()
                 server.playerManager.playerList.forEach { it.sendRateMessage() }
+            } else {
+                player.sendMessage(Text.translatable("error.relativity.permission"), true)
             }
         }
         ServerPlayNetworking.registerGlobalReceiver(Channels.MOD) { server, player, _, buf, _ ->
-            if (player.hasPermissionLevel(2)) {
+            if (server.isSingleplayer || player.hasPermissionLevel(4)) {
                 tickRate += buf.readInt()
                 server.playerManager.playerList.forEach { it.sendRateMessage() }
+            } else {
+                player.sendMessage(Text.translatable("error.relativity.permission"), true)
             }
         }
 
