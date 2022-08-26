@@ -7,6 +7,7 @@ import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import org.quiltmc.loader.api.ModContainer
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer
+import org.quiltmc.qsl.lifecycle.api.event.ServerLifecycleEvents
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -35,6 +36,8 @@ object Relativity : ModInitializer {
         log.info("Relativity initializing...")
 
         Items
+
+        ServerLifecycleEvents.STARTING.register { tickRate = defaultTickRate }
 
         ServerPlayNetworking.registerGlobalReceiver(Channels.SET) { server, player, _, buf, _ ->
             if (player.hasPermissionLevel(2)) {
