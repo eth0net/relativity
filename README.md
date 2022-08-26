@@ -10,16 +10,19 @@ Made for [Modfest: Singularity](https://modfest.net/)!
 ## Getting Started
 
 - Craft the Staff of Relativity
-- Use the staff to control time!
+- Use the staff to stop time
+- Sneak and use the staff to start time
 
 ## Features
 
 - Craftable Staff of Relativity
-- Op / cheat keybinds
+- Requires op on servers
+- Op / cheat keybinds for finer control
 
 ## Gallery
 
-![Staff recipe](./assets/screenshots/staff-recipe.png)
+<img alt="Staff recipe" src="./assets/screenshots/staff-recipe.png" width="512"/>
+<img alt="Staff in Hand" src="./assets/screenshots/staff-in-hand.png" width="512"/>
 
 ## My mods
 
