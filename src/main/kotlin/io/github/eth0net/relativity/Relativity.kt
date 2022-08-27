@@ -39,21 +39,11 @@ object Relativity : ModInitializer {
 
         ServerLifecycleEvents.STARTING.register { tickRate = defaultTickRate }
 
-        ServerPlayNetworking.registerGlobalReceiver(Channels.SET) { server, player, _, buf, _ ->
-            if (server.isSingleplayer || player.hasPermissionLevel(4)) {
-                tickRate = buf.readInt()
-                server.playerManager.playerList.forEach { it.sendRateMessage() }
-            } else {
-                player.sendMessage(Text.translatable("error.relativity.permission"), true)
-            }
+        ServerPlayNetworking.registerGlobalReceiver(Channels.SET) { _, player, _, buf, _ ->
+            player.setTickRate(buf.readInt())
         }
-        ServerPlayNetworking.registerGlobalReceiver(Channels.MOD) { server, player, _, buf, _ ->
-            if (server.isSingleplayer || player.hasPermissionLevel(4)) {
-                tickRate += buf.readInt()
-                server.playerManager.playerList.forEach { it.sendRateMessage() }
-            } else {
-                player.sendMessage(Text.translatable("error.relativity.permission"), true)
-            }
+        ServerPlayNetworking.registerGlobalReceiver(Channels.MOD) { _, player, _, buf, _ ->
+            player.setTickRate(tickRate + buf.readInt())
         }
 
         log.info("Relativity initialized")
@@ -61,7 +51,15 @@ object Relativity : ModInitializer {
 
     internal fun id(path: String) = Identifier(MOD_ID, path)
 
-    internal fun PlayerEntity.sendRateMessage() {
-        this.sendMessage(Text.translatable("message.relativity.rate", tickRate), true)
+    internal fun PlayerEntity.setTickRate(rate: Int): Boolean {
+        if (server?.isSingleplayer == false && !hasPermissionLevel(4)) {
+            sendMessage(Text.translatable("error.relativity.permission"), true)
+            return false
+        }
+        tickRate = rate
+        server?.playerManager?.playerList?.forEach {
+            it.sendMessage(Text.translatable("message.relativity.rate", tickRate), true)
+        }
+        return true
     }
 }
