@@ -7,7 +7,7 @@ val modVersion: String by project
 val modVersionName: String by project
 val modVersionType: String by project
 val quiltStandardLibraryId: String by project
-val fabricLanguageKotlinId: String by project
+val quiltKotlinLibrariesId: String by project
 
 val changelogFile = project.file("changelogs/$modVersion.md")
 val changelogText = if (changelogFile.exists()) changelogFile.readText() else "No changelog provided."
@@ -34,7 +34,7 @@ dependencies {
     })
     modImplementation(libs.quilt.loader)
     modImplementation(libs.quilted.fabric.api)
-    modImplementation(libs.fabric.language.kotlin)
+    modImplementation(libs.quilt.kotlin.libraries)
 }
 
 tasks {
@@ -70,7 +70,7 @@ tasks {
         additionalFiles.set(listOf(remapSourcesJar.get()))
         dependencies {
             required.version(quiltStandardLibraryId)
-            required.version(fabricLanguageKotlinId)
+            required.version(quiltKotlinLibrariesId)
         }
     }
 }
