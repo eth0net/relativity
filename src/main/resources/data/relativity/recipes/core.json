@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RER",
+    "EDE",
+    "RER"
+  ],
+  "key": {
+    "D": {"item": "minecraft:diamond"},
+    "E": {"item": "minecraft:echo_shard"},
+    "R": {"item": "minecraft:redstone"}
+  },
+  "result": {
+    "item": "relativity:core"
+  }
+}

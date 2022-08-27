@@ -10,7 +10,7 @@ import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
 
-class RelativityItem(settings: Settings) : Item(settings) {
+class RelativityControlItem(settings: Settings) : Item(settings) {
     override fun use(world: World, user: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
         if (world.isClient()) return super.use(world, user, hand)
         if (world.server?.isSingleplayer == true || user.hasPermissionLevel(4)) {
@@ -22,22 +22,3 @@ class RelativityItem(settings: Settings) : Item(settings) {
         return TypedActionResult.fail(user.getStackInHand(hand))
     }
 }
-
-/* Recipes
-* D: Diamond
-* E: Echo Shard
-* R: Redstone
-*
-* Shard:
-* |R|E|R|
-* |E|D|E|
-* |R|E|R|
-*
-* X: Shard
-* \: Stick
-*
-* Staff:
-* |X| | |
-* | |\| |
-* | | |\|
-* */
